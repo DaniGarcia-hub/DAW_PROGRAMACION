@@ -1,11 +1,7 @@
 DJGQ | 1ºJ DAW.
 
-UNIDAD 5. HERENCIA Y POLIMORFISMO.
+UNIDAD X. (Nombre tema).
 
-- Herencia.
-- Composición.
-- Encapsulación.
-- Polimorfismo.
-- Interfaces.
-- Abstracción.
-- Excepciones.
+- (Contenido 1).
+- (Contenido 2).
+- (Contenido 3).
