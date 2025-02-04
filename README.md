@@ -1,7 +1,11 @@
 DJGQ | 1ºJ DAW.
 
-UNIDAD X. (Nombre tema).
+UNIDAD 6. Colecciones.
 
-- (Contenido 1).
-- (Contenido 2).
-- (Contenido 3).
+- List y ArrayList
+- Linked List
+- Map
+- Set
+- Colecciones ordenadas
+- Keyword Final
+- Equals & hashcode
