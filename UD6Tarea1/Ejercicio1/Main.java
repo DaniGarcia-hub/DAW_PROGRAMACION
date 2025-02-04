@@ -1,5 +1,6 @@
 package UD6Tarea1.Ejercicio1;
 
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -21,6 +22,59 @@ public class Main {
                 case 2:
                     telefono1.addNewContact(registrarContacto());
                     break;
+                case 3:
+                    Contacto obtenerContacto = telefono1.queryContact(solicitarNombreContacto());
+                    if (obtenerContacto != null){
+                        telefono1.updateContact(obtenerContacto, registrarContacto());
+                    } else {
+                        System.err.println("No se puede actualizar un contacto que no existe.");
+                    }
+                    break;
+                case 4:
+                    int contactNumber = telefono1.findContact(solicitarNombreContacto());
+                    if (contactNumber < 0){
+                        System.err.println("No se ha encontrado el contacto a borrar.");
+                    } else {
+                        telefono1.removeContact(telefono1.getMyContacts().get(contactNumber));
+                        System.out.println("CONTACTO ELIMINADO.");
+                    }
+                    break;
+                case 5:
+                    mostrarMenuBusqueda();
+                    switch (resultadoScannerInt()){
+                        case 1:
+                            obtenerDatosContactoOnly(telefono1, telefono1.findContact(solicitarNombreContacto()));
+                            break;
+                        case 2:
+                            obtenerDatosContactoOnly(telefono1, telefono1.findContactByNumber(solicitarNumeroTelefono()));
+                            break;
+                        case 3:
+                            boolean ejecucionCorrecta = false;
+                            int opc = -1;
+                            do {
+                                mostrarMenuCondiciones();
+                                opc = resultadoScannerInt();
+                                if (opc > 0 && opc < 5){
+                                    ejecucionCorrecta = true;
+                                } else {
+                                    System.err.println("Opción incorrecta.");
+                                }
+                            } while (!ejecucionCorrecta);
+                            for (Contacto contactWithCondition : telefono1.findByCode(opc)){
+                                System.out.println(contactWithCondition);
+                            }
+                            break;
+                        default:
+                            System.err.println("Opción incorrecta.");
+                    }
+                    break;
+                case 6:
+                    Collections.sort(telefono1.getMyContacts());
+                    System.out.println("¡LISTA DE CONTACTOS ORDENADA!");
+                    telefono1.printContacts();
+                    break;
+                default:
+                    System.err.println("Opción incorrecta.");
             }
         }
     }
@@ -42,8 +96,9 @@ public class Main {
                 9. Imprimir lista de opciones.""");
     }
 
+    static Scanner sc = new Scanner(System.in);
     public static int resultadoScannerInt(){
-        Scanner sc = new Scanner(System.in);
+
         boolean introduccionCorrecta = false;
 
         try{
@@ -63,11 +118,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String numTel = "";
 
-        System.out.println("Introduce el nombre del contacto:");
+        System.out.println("Introduce el nombre del nuevo contacto:");
         String name = sc.nextLine();
 
         do {
-            System.out.println("Introduce el telefono a registrar:");
+            System.out.println("Introduce el nuevo telefono a registrar:");
             numTel = sc.nextLine();
         } while (!comprobarCondicionesTel(numTel));
 
@@ -88,5 +143,51 @@ public class Main {
 
             return true;
         }
+    }
+
+    public static String solicitarNombreContacto(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Introduce el nombre del contacto:");
+        return sc.nextLine();
+    }
+
+    public static String solicitarNumeroTelefono(){
+        Scanner sc = new Scanner(System.in);
+        String numTel = "";
+
+        do {
+            System.out.println("Introduce el número de teléfono:");
+            numTel = sc.nextLine();
+        } while (!comprobarCondicionesTel(numTel));
+
+        return numTel;
+    }
+
+    public static void mostrarMenuBusqueda(){
+        System.out.println("""
+                Se dispone de diferentes formas de buscar contactos. Búsqueda por:
+                1. Nombre de contacto.
+                2. Teléfono de contacto.
+                3. Patrón clave. (Ejemplo: Empiecen por A).""");
+    }
+
+    public static int obtenerDatosContactoOnly(TelefonoMovil telefono, int posicionContacto){
+        if (posicionContacto >= 0){
+            System.out.println(telefono.getMyContacts().get(posicionContacto));
+            return 0;
+        } else {
+            System.err.println("Contacto no encontrado.");
+            return -1;
+        }
+    }
+
+    public static void mostrarMenuCondiciones(){
+        System.out.println("""
+                Formas disponibles para realizar una búsqueda más precisa:
+                1. Empieza por X.
+                2. Termina por Y.
+                3. Contiene Z.
+                4. Contiene números en el nombre del contacto.""");
     }
 }

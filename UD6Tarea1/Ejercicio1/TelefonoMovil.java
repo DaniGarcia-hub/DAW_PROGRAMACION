@@ -1,6 +1,8 @@
 package UD6Tarea1.Ejercicio1;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 
 public class TelefonoMovil {
     private String myNumber;
@@ -59,6 +61,62 @@ public class TelefonoMovil {
         return -1;
     }
 
+    public int findContactByNumber(String numTel){
+        for (Contacto contact : myContacts){
+            if (contact.getPhoneNumber().equals(numTel)){
+                return myContacts.indexOf(contact);
+            }
+        }
+
+        return -1;
+    }
+
+    public ArrayList<Contacto> findByCode(int condition){
+        ArrayList<Contacto> contactsFilterdByCode = new ArrayList<>();
+        switch (condition){
+            case 1, 2, 3:
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Introduce la condición por la que filtrar (No CaseSensitive):");
+                char letterCondition = sc.nextLine().charAt(0);
+                sc.close();
+
+                if (condition == 3){
+                    for (int i = 0; i < myContacts.size(); i++){
+                        String contact = myContacts.get(i).getName();
+
+                        for (int j = 0; j < contact.length(); j++){
+                            if (contact.charAt(j) == letterCondition){
+                                contactsFilterdByCode.add(myContacts.get(i));
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    for (int i = 0; i < myContacts.size(); i++){
+                        String contact = myContacts.get(i).getName();
+
+                        if (contact.charAt(condition == 1 ? 0: contact.length()-1) == letterCondition){
+                            contactsFilterdByCode.add(myContacts.get(i));
+                        }
+                    }
+                }
+                break;
+            case 4:
+                for (int i = 0; i < myContacts.size(); i++){
+                    String contact = myContacts.get(i).getName();
+
+                    for (int j = 0; j < contact.length(); j++){
+                        if (Character.isDigit(contact.charAt(j))){
+                            contactsFilterdByCode.add(myContacts.get(i));
+                        }
+                    }
+                }
+                break;
+        }
+
+        return contactsFilterdByCode;
+    }
+
     public Contacto queryContact(String nameContact){
         int contactPosition = findContact(nameContact);
         if (contactPosition >= 0){
@@ -69,12 +127,27 @@ public class TelefonoMovil {
         return null;
     }
 
+    public Contacto queryContactNumber(String numTel){
+        int contactPosition = findContactByNumber(numTel);
+
+        if (contactPosition >= 0){
+            return myContacts.get(contactPosition);
+        }
+
+        System.out.println("Número de contacto no encontrado.");
+        return null;
+    }
+
     public void printContacts(){
         System.out.println("Lista de contactos:");
         for (int i = 0; i < myContacts.size(); i++){
             System.out.println((i+1) + ". " + myContacts.get(i).getName() + " --> " + myContacts.get(i).getPhoneNumber());
         }
         System.out.println();
+    }
+
+    public ArrayList<Contacto> getMyContacts() {
+        return myContacts;
     }
 }
 
