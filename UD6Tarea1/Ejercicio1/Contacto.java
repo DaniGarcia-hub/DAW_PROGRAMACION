@@ -29,7 +29,7 @@ public class Contacto implements Comparable<Contacto>{
 
     @Override
     public int compareTo(Contacto o) {
-        int result = name.compareTo(o.name);
+        int result = name.compareToIgnoreCase(o.name);
 
         if (result == 0){
             result = phoneNumber.compareTo(o.phoneNumber);

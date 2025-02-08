@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
 
         boolean finalizarPrograma = false;
@@ -61,7 +62,7 @@ public class Main {
                                 }
                             } while (!ejecucionCorrecta);
                             for (Contacto contactWithCondition : telefono1.findByCode(opc)){
-                                System.out.println(contactWithCondition);
+                                System.out.println(contactWithCondition.toString());
                             }
                             break;
                         default:
@@ -73,6 +74,13 @@ public class Main {
                     System.out.println("¡LISTA DE CONTACTOS ORDENADA!");
                     telefono1.printContacts();
                     break;
+                case 7:
+                    System.out.println("Cantidad de contactos registrados: " + telefono1.getMyContacts().size() + " contactos registrados.");
+                    break;
+                case 8:
+                    telefono1.deleteAllContacts();
+                    System.out.println("Todos los contactos eliminados.");
+                    break;
                 default:
                     System.err.println("Opción incorrecta.");
             }
@@ -81,6 +89,7 @@ public class Main {
 
     public static void mostrarMenuInicial(){
         System.out.println("""
+                
                 PROGRAMA PARA REGISTRAR CONTACTOS Y/O INICIALIZAR TELEFONOS MÓVILES.
                 
                 Opciones:
@@ -92,40 +101,29 @@ public class Main {
                 5. Buscar/Encontrar un contacto.
                 6. Ordenar lista de contactos.
                 7. Cantidad de contactos registrados.
-                8. Borrar lista de contactos.
-                9. Imprimir lista de opciones.""");
+                8. Borrar lista de contactos.""");
     }
 
-    static Scanner sc = new Scanner(System.in);
     public static int resultadoScannerInt(){
-
         boolean introduccionCorrecta = false;
-
-        try{
             while(!introduccionCorrecta){
-                introduccionCorrecta = true;
-                return sc.nextInt();
+                try {
+                    return sc.nextInt();
+                }catch (InputMismatchException e){
+                    System.err.println("Valor introducido incorrecto.");
+                }
             }
-        } catch (InputMismatchException e){
-            System.err.println("Valor introducido incorrecto.");
-        }
-
-        sc.close();
         return -1;
     }
 
     public static Contacto registrarContacto(){
-        Scanner sc = new Scanner(System.in);
         String numTel = "";
-
         System.out.println("Introduce el nombre del nuevo contacto:");
-        String name = sc.nextLine();
-
+        String name = sc.next();
         do {
             System.out.println("Introduce el nuevo telefono a registrar:");
-            numTel = sc.nextLine();
+            numTel = sc.next();
         } while (!comprobarCondicionesTel(numTel));
-
         return new Contacto(name, numTel);
     }
 
@@ -140,27 +138,21 @@ public class Main {
                     return false;
                 }
             }
-
             return true;
         }
     }
 
     public static String solicitarNombreContacto(){
-        Scanner sc = new Scanner(System.in);
-
         System.out.println("Introduce el nombre del contacto:");
-        return sc.nextLine();
+        return sc.next();
     }
 
     public static String solicitarNumeroTelefono(){
-        Scanner sc = new Scanner(System.in);
         String numTel = "";
-
         do {
             System.out.println("Introduce el número de teléfono:");
-            numTel = sc.nextLine();
+            numTel = sc.next();
         } while (!comprobarCondicionesTel(numTel));
-
         return numTel;
     }
 

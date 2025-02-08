@@ -1,7 +1,6 @@
 package UD6Tarea1.Ejercicio1;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class TelefonoMovil {
@@ -57,7 +56,6 @@ public class TelefonoMovil {
                 return myContacts.indexOf(contact);
             }
         }
-
         return -1;
     }
 
@@ -67,7 +65,6 @@ public class TelefonoMovil {
                 return myContacts.indexOf(contact);
             }
         }
-
         return -1;
     }
 
@@ -77,13 +74,10 @@ public class TelefonoMovil {
             case 1, 2, 3:
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Introduce la condición por la que filtrar (No CaseSensitive):");
-                char letterCondition = sc.nextLine().charAt(0);
-                sc.close();
-
+                char letterCondition = Character.toUpperCase(sc.next().charAt(0));
                 if (condition == 3){
                     for (int i = 0; i < myContacts.size(); i++){
-                        String contact = myContacts.get(i).getName();
-
+                        String contact = myContacts.get(i).getName().toUpperCase();
                         for (int j = 0; j < contact.length(); j++){
                             if (contact.charAt(j) == letterCondition){
                                 contactsFilterdByCode.add(myContacts.get(i));
@@ -93,8 +87,7 @@ public class TelefonoMovil {
                     }
                 } else {
                     for (int i = 0; i < myContacts.size(); i++){
-                        String contact = myContacts.get(i).getName();
-
+                        String contact = myContacts.get(i).getName().toUpperCase();
                         if (contact.charAt(condition == 1 ? 0: contact.length()-1) == letterCondition){
                             contactsFilterdByCode.add(myContacts.get(i));
                         }
@@ -104,7 +97,6 @@ public class TelefonoMovil {
             case 4:
                 for (int i = 0; i < myContacts.size(); i++){
                     String contact = myContacts.get(i).getName();
-
                     for (int j = 0; j < contact.length(); j++){
                         if (Character.isDigit(contact.charAt(j))){
                             contactsFilterdByCode.add(myContacts.get(i));
@@ -122,18 +114,15 @@ public class TelefonoMovil {
         if (contactPosition >= 0){
             return myContacts.get(contactPosition);
         }
-
         System.out.println("Nombre de contacto no encontrado.");
         return null;
     }
 
     public Contacto queryContactNumber(String numTel){
         int contactPosition = findContactByNumber(numTel);
-
         if (contactPosition >= 0){
             return myContacts.get(contactPosition);
         }
-
         System.out.println("Número de contacto no encontrado.");
         return null;
     }
@@ -143,18 +132,13 @@ public class TelefonoMovil {
         for (int i = 0; i < myContacts.size(); i++){
             System.out.println((i+1) + ". " + myContacts.get(i).getName() + " --> " + myContacts.get(i).getPhoneNumber());
         }
-        System.out.println();
+    }
+
+    public void deleteAllContacts(){
+        myContacts.clear();
     }
 
     public ArrayList<Contacto> getMyContacts() {
         return myContacts;
     }
 }
-
-/* PENDIENTE DE:
-    - Buscar por telefono.
-    - Ordenador por nombre.
-    - Borrar all.
-    - Numero de contactos.
-    - Busqueda por clave. (Por posicion, o que empiece por...).
- */
