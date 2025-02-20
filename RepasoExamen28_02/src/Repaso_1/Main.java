@@ -2,9 +2,8 @@ package Repaso_1;
 
 import Repaso_1.srcArmas.*;
 import Repaso_1.srcEntidades.*;
-import Repaso_1.Solicitudes.*;
 
-import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -37,7 +36,8 @@ public class Main {
         ListadoHeroes listadoHeroes = new ListadoHeroes(1, "Cacerolas");
         ListadoArmas listadoArmas = new ListadoArmas(1, "ArmasGuays");
 
-        listadoHeroes.registrarNuevoHeroe(new Arquero("Delfo", 21, 238.54, 38, listadoArmas.armas.getFirst()));
+        listadoHeroes.registrarNuevoHeroe(new Arquero("Periko", 2, 134.25, 25.5, listadoArmas.getArmas().getFirst()));
+        listadoHeroes.registrarNuevoHeroe(new Arquero("Alberto", 3, 154.25, 15.2, listadoArmas.getArmas().getFirst()));
 
         gremios[0].nuevoHeroeGremio(listadoHeroes.personas.getFirst());
 
@@ -49,84 +49,112 @@ public class Main {
         while (!finalizarPrograma){
             mostrarOpcInicial();
             switch (solicitarOPC()){
-                case 7:
+                case 8:
+                    System.out.println("Saliendo del programa...");
                     finalizarPrograma = true;
                     break;
                 case 1:
+                    condicionesCrearHeroe();
+                    System.out.println("------------------------");
                     Solicitudes.mostrarTiposHeroes();
-                    String tipoHeroe = Solicitudes.solicitarTipoHeroe();
+                    int tipoHeroe = Solicitudes.solicitarTipoHeroe();
                     String nombre = Solicitudes.solicitarNombre();
                     int nivel = Solicitudes.solicitarNivel();
                     listadoArmas.mostrarArmasRegistradas();
                     Arma arma = Solicitudes.solicitarArma(listadoArmas);
                     double vidaInicial = VIDA_INICIAL;
                     switch (tipoHeroe){
-                        case "GUERRERO":
+                        case 0:
                             vidaInicial = (double) Math.round((vidaInicial * Math.pow((1+AUMENTO_VIDAXNIVELSIMPLE), nivel - 1))*100 / 100);
                             double fuerza = 3 + (nivel*INCREMENTO_ATRIBUTOSESPECIFICOS);
                             listadoHeroes.registrarNuevoHeroe(new Guerrero(nombre, nivel, vidaInicial, fuerza, arma));
                             break;
-                        case "ARQUERO":
+                        case 1:
                             double precision = 5 + (nivel*INCREMENTO_ATRIBUTOSESPECIFICOS);
                             listadoHeroes.registrarNuevoHeroe(new Arquero(nombre, nivel, vidaInicial, precision, arma));
                             break;
-                        case "ASESINO":
+                        case 2:
                             double sigilo = 5 + (nivel*INCREMENTO_ATRIBUTOSESPECIFICOS);
                             listadoHeroes.registrarNuevoHeroe(new Asesino(nombre, nivel, vidaInicial, sigilo, arma));
                             break;
-                        case "MAGO":
+                        case 3:
                             vidaInicial = (double) Math.round((vidaInicial * Math.pow((1+AUMENTO_VIDAXNIVELSIMPLE), nivel - 1))*100 / 100);
                             double mana = 3 + (nivel+INCREMENTO_ATRIBUTOSESPECIFICOS);
                             listadoHeroes.registrarNuevoHeroe(new Mago(nombre, nivel, vidaInicial, mana, arma));
                             break;
                     }
+                    System.out.println("INFORMACIÓN HÉROE CREADO:");
+                    listadoHeroes.personas.getLast();
                     break;
                 case 2:
                     Solicitudes.mostrarTiposArmas();
-                    String tipoArma = Solicitudes.solicitarTipoArma();
+                    int tipoArma = Solicitudes.solicitarTipoArma();
                     nombre = Solicitudes.solicitarNombre();
                     double dmg = Solicitudes.solicitarDMG();
                     int durabilidad = Solicitudes.solicitarDurabilidad();
                     Solicitudes.mostrarAtributosEspeciales();
-                    String atributoEspecial = Solicitudes.solicitarAtributoEspecial();
-                    dmg = switch (atributoEspecial) {
-                        case "FUEGO" -> dmg + (dmg * INCREMENTO_FUEGO);
-                        case "HIELO" -> dmg + (dmg * INCREMENTO_HIELO);
-                        case "VENENO" -> dmg + (dmg * INCREMENTO_VENENO);
-                        case "DEBILIDAD" -> dmg + (dmg * INCREMENTO_DEBILIDAD);
-                        default -> dmg;
-                    };
-                    if (tipoArma.equalsIgnoreCase("ARCO") || tipoArma.equalsIgnoreCase("BALLESTA")){
+                    int opcAtributo = Solicitudes.solicitarAtributoEspecial();
+                    String atributoEspecial = "";
+                    switch (opcAtributo){
+                        case 0:
+                            atributoEspecial = "FUEGO";
+                            dmg = dmg + (dmg * INCREMENTO_FUEGO);
+                            break;
+                        case 1:
+                            atributoEspecial = "HIELO";
+                            dmg = dmg + (dmg*INCREMENTO_HIELO);
+                            break;
+                        case 2:
+                            atributoEspecial = "VENENO";
+                            dmg = dmg + (dmg*INCREMENTO_VENENO);
+                            break;
+                        case 3:
+                            atributoEspecial = "DEBILIDAD";
+                            dmg = dmg + (dmg*INCREMENTO_DEBILIDAD);
+                            break;
+                        default:
+                            atributoEspecial = "NINGUNO";
+                    }
+                    if (tipoArma == 0 || tipoArma == 1){
                         String tipoMunicion = Solicitudes.solicitarTipoMunicion();
                         int cantidadMunicion = Solicitudes.solicitarCantidadMunicion();
-                        if (tipoArma.equalsIgnoreCase("ARCO")){
+                        if (tipoArma == 0){
                             listadoArmas.registrarNuevaArma(new Arco(nombre, dmg, durabilidad, atributoEspecial, cantidadMunicion, tipoMunicion));
                         } else {
                             listadoArmas.registrarNuevaArma(new Ballesta(nombre, dmg, durabilidad, atributoEspecial, cantidadMunicion, tipoMunicion));
                         }
                     } else {
                         switch (tipoArma){
-                            case "CUCHILLO":
+                            case 2:
                                 boolean sangrado = Solicitudes.solicitarSangrado();
                                 if (sangrado) dmg = dmg + (dmg*INCREMENTO_SANGRADO);
                                 listadoArmas.registrarNuevaArma(new Cuchillo(nombre, dmg, durabilidad, atributoEspecial, sangrado));
                                 break;
-                            case "ESPADA":
-                                listadoArmas.registrarNuevaArma(new Espada(nombre, dmg, durabilidad,atributoEspecial));
+                            case 3:
+                                listadoArmas.registrarNuevaArma(new Espada(nombre, dmg, durabilidad, atributoEspecial));
                                 break;
                         }
                     }
                     break;
                 case 3:
                     int heroeSeleccionado = -1;
+                    String nombreBuscado = "";
                     do {
-                        System.out.println("Seleccione el héroe:");
-                        listadoHeroes.mostrarHeroesRegistrados();
-                        heroeSeleccionado = solicitarOPC()-1;
-                    } while (Validaciones.queryHeroe(listadoHeroes.personas.get(heroeSeleccionado).getNombre(), listadoHeroes) == null);
+                        try {
+                            System.out.println("Seleccione el héroe:");
+                            listadoHeroes.mostrarHeroesRegistrados();
+                            heroeSeleccionado = solicitarOPC()-1;
+                            nombreBuscado = listadoHeroes.personas.get(heroeSeleccionado).getNombre();
+                        } catch (IndexOutOfBoundsException e){
+                            System.err.println("ERROR. El héroe introducido no existe.");
+                        }
+                    } while (Validaciones.queryHeroe(nombreBuscado, listadoHeroes) == null);
                     System.out.println("Escoga el gremio al que introducir el héroe:");
                     mostrarGremios(gremios);
-                    gremios[Solicitudes.solicitarGremio(gremios)].nuevoHeroeGremio(listadoHeroes.personas.get(heroeSeleccionado));
+                    int indexGremio = Solicitudes.solicitarGremio(gremios);
+                    gremios[indexGremio].nuevoHeroeGremio(listadoHeroes.personas.get(heroeSeleccionado));
+                    System.out.println("INFORMACIÓN. RESULTADO:");
+                    System.out.println("Gremio: " + gremios[indexGremio].getNombreGremio() + " | " + gremios[indexGremio].personasGremio.getLast());
                     break;
                 case 4:
                     System.out.println("Introduce el nombre del heroe que desea borrar:");
@@ -161,15 +189,128 @@ public class Main {
                     mostrarGremios(gremios);
                     gremios[Solicitudes.solicitarGremio(gremios)].mostrarHeroesGremio();
                     break;
+                case 7:
+                    if (listadoHeroes.personas.size() == 1){
+                        System.err.println("ERROR. No se puede luchar con solo 1 héroe registrado.");
+                        break;
+                    }
+                    int heroePrincipalINT = -1;
+                    int heroeSecundarioINT = -1;
+                    boolean personajeCorrecto = false;
+                    mostrarInfoPelea();
+                    listadoHeroes.mostrarHeroesRegistrados();
+                    do {
+                        System.out.println("Introduce el nombre del héroe principal que va a luchar:");
+                        heroePrincipalINT = solicitarOPC()-1;
+                        if (heroePrincipalINT >= 0 && heroePrincipalINT < listadoHeroes.personas.size()){ // COMPROBAR SI EL HÉROE EXISTE.
+                            if (listadoHeroes.personas.get(heroePrincipalINT).getArma().getDurabilidad() == 0){ // COMPROBANDO DURABILIDAD DEL ARMA.
+                                System.err.println("ERROR. Un héroe con un arma rota no puede luchar.");
+                            } else {
+                                personajeCorrecto = true;
+                            }
+                        } else {
+                            System.err.println("ERROR. Personaje introducido inválido.");
+                        }
+                    } while (!personajeCorrecto);
+                    personajeCorrecto = false;
+                    do {
+                        System.out.println("Introduce el personaje con el que luchará:");
+                        heroeSecundarioINT = solicitarOPC()-1;
+                        if (heroeSecundarioINT >= 0 && heroeSecundarioINT < listadoHeroes.personas.size()){ // COMPROBAR SI EL HÉROE EXISTE.
+                            if (listadoHeroes.personas.get(heroeSecundarioINT).getArma().getDurabilidad() == 0){ // COMPROBANDO DURABILIDAD DEL ARMA.
+                                System.err.println("ERROR. Un héroe con un arma rota no puede luchar.");
+                            } else {
+                                personajeCorrecto = true;
+                            }
+                        } else {
+                            System.err.println("ERROR. Personaje introducido inválido.");
+                        }
+                    } while (!personajeCorrecto);
+
+                    Persona heroePrincipal = listadoHeroes.personas.get(heroePrincipalINT); // SE OBTIENE DIRECTAMENTE EL HÉROE.
+                    Persona heroeSecundario = listadoHeroes.personas.get(heroeSecundarioINT); // SE OBTIENE DIRECTAMENTE EL HÉROE.
+                    Random random = new Random();
+                    boolean quienEmpieza = random.nextBoolean();
+                    boolean turnoHeroePrincipal = quienEmpieza ? true : false;
+                    boolean ganadorBoolean = true; // TRUE = Heroe Principal.
+                    boolean finalizarPartida = false;
+                    Persona ganador = null;
+
+                    double dmgQuitar = -5;
+                    double vidaRestantePrincipal = heroePrincipal.getHP();
+                    double vidaRestanteSecundario = heroeSecundario.getHP();
+
+                    int contadorRonda = 1;
+
+                    while (!finalizarPartida){
+                        if (turnoHeroePrincipal){
+                            if (vidaRestantePrincipal != 0){
+                                if (heroePrincipal.getArma().getDurabilidad() != 0){
+                                    System.out.println("----- RONDA " + contadorRonda + " -----");
+                                     dmgQuitar = heroePrincipal.atacar();
+                                    System.out.println(heroePrincipal.getNombre() + " está atacando... Golpea a " + heroeSecundario.getNombre());
+                                    System.out.println("Daño proporcionado: " + dmgQuitar);
+                                    vidaRestanteSecundario = vidaRestanteSecundario-dmgQuitar;
+                                    if (vidaRestanteSecundario < 0){
+                                        vidaRestanteSecundario = 0;
+                                    }
+                                    heroeSecundario.setHP(vidaRestanteSecundario);
+                                    System.out.println("HP restante de " + heroeSecundario.getNombre() + ": " + vidaRestanteSecundario);
+                                    turnoHeroePrincipal = false;
+                                    contadorRonda++;
+                                    System.out.println("--------------------");
+                                } else {
+                                    System.err.println("Ohh NOO! ¡La arma está rota! Me da que " + heroePrincipal.getNombre() + " ha perdido...");
+                                    ganadorBoolean = false;
+                                    finalizarPartida = true;
+                                }
+                            } else {
+                                System.err.println("Vaya... " + heroePrincipal.getNombre() + " ha muerto...");
+                                ganadorBoolean = false;
+                                finalizarPartida = true;
+                            }
+                        } else {
+                            if (vidaRestanteSecundario != 0){
+                                if (heroeSecundario.getArma().getDurabilidad() != 0){
+                                    System.out.println("----- RONDA " + contadorRonda + " -----");
+                                    dmgQuitar = heroeSecundario.atacar();
+                                    System.out.println(heroeSecundario.getNombre() + " está atacando... Golpea a " + heroePrincipal.getNombre());
+                                    System.out.println("Daño proporcionado: " + dmgQuitar);
+                                    vidaRestantePrincipal = vidaRestantePrincipal-dmgQuitar;
+                                    if (vidaRestantePrincipal < 0){
+                                        vidaRestantePrincipal = 0;
+                                    }
+                                    heroeSecundario.setHP(vidaRestantePrincipal);
+                                    System.out.println("HP restante de " + heroePrincipal.getNombre() + ": " + vidaRestantePrincipal);
+                                    turnoHeroePrincipal = true;
+                                    contadorRonda++;
+                                    System.out.println("--------------------");
+                                } else {
+                                    System.err.println("Ohh NOO! ¡La arma está rota! Me da que " + heroeSecundario.getNombre() + " ha perdido...");
+                                    finalizarPartida = true;
+                                }
+                            } else {
+                                System.err.println("Vaya... " + heroeSecundario.getNombre() + " ha muerto...");
+                                finalizarPartida = true;
+                            }
+                        }
+                    }
+                    ganador = ganadorBoolean ? heroePrincipal : heroeSecundario;
+                    System.out.println("GANADOR:");
+                    System.out.println(ganador);
+
+                    ganador.setNivel(ganador.getNivel()+1);
+                    System.out.println("¡SUBIDA DE NIVEL PARA " + ganador.getNombre() + "! | NUEVO NIVEL: " + ganador.getNivel());
+                    break;
                 default:
                     System.out.println("Opción incorrecta.");
             }
         }
-        System.out.println("Saliendo del programa...");
     }
 
     public static void mostrarOpcInicial(){
         System.out.println("""
+                
                 MENÚ INICIAL (OPCIONES):
                 1. Añadir nuevo héroe.
                 2. Añadir una arma nueva al arsenal.
@@ -177,7 +318,8 @@ public class Main {
                 4. Eliminar un héroe.
                 5. Buscar un héroe y mostrar sus detalles.
                 6. Listar todos los héroes registrados en un gremio.
-                7. Salir del programa.""");
+                7. Hacer una pelea entre héroes.
+                8. Salir del programa.""");
     }
 
     public static int solicitarOPC(){
@@ -187,11 +329,11 @@ public class Main {
         do {
             try {
                 System.out.println("Escoge una opción:");
-                opc = sc.nextInt();
+                String entrada = sc.nextLine().trim();
+                opc = Integer.parseInt(entrada);
                 formatoCorrecto = true;
-            } catch (InputMismatchException e){
-                System.out.println("Tipo de dato proporcionado incorrecto. (Se necesita tipo número).");
-                sc.nextLine();
+            } catch (NumberFormatException e){
+                System.err.println("Tipo de dato proporcionado incorrecto. (Se necesita tipo número).");
             }
         } while (!formatoCorrecto);
         return opc;
@@ -215,5 +357,13 @@ public class Main {
             System.out.println((i+1) + " | " + gremio);
             i++;
         }
+    }
+
+    public static void mostrarInfoPelea(){
+        System.out.println("""
+                PELEA DE HÉROES:
+                
+                Se trata de un modo de juego, donde tras escoger dos héroes para una pelea, se enfrentarán haciendo uso
+                de sus increibles armas en una pelea. A continuación, se mostrarán la lista de héroes disponibles:""");
     }
 }

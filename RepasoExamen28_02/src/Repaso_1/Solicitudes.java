@@ -39,22 +39,31 @@ public class Solicitudes {
         }
     }
 
-    protected static String solicitarTipoHeroe(){
-        String seleccionTipo = "";
+    protected static int solicitarTipoHeroe(){
+        int seleccionTipo = -1;
         do {
-            System.out.println("Seleccione el tipo de héroe (Ej. Guerrero):");
-            seleccionTipo = sc.nextLine().toUpperCase();
-            sc.reset();
+            try {
+                System.out.println("Seleccione el tipo de héroe (Ej. 2):");
+                String entrada = sc.nextLine().trim();
+                seleccionTipo = Integer.parseInt(entrada)-1;
+            } catch (NumberFormatException e){
+                System.err.println("Formato incorrecto. Se solicita tipo número.");
+            }
+
         } while (!Validaciones.validarTipoHeroe(seleccionTipo));
         return seleccionTipo;
     }
 
-    protected static String solicitarTipoArma(){
-        String seleccionTipo = "";
+    protected static int solicitarTipoArma(){
+        int seleccionTipo = -1;
         do {
-            System.out.println("Seleccione el tipo de arma:");
-            seleccionTipo = sc.nextLine().toUpperCase();
-            sc.reset();
+            try {
+                System.out.println("Seleccione el tipo de arma:");
+                String entrada = sc.nextLine().trim();
+                seleccionTipo = Integer.parseInt(entrada)-1;
+            } catch (NumberFormatException e){
+                System.err.println("Formato incorrecto. Se solicita tipo número.");
+            }
         } while (!Validaciones.validarTipoArma(seleccionTipo));
         return seleccionTipo;
     }
@@ -64,7 +73,6 @@ public class Solicitudes {
         do {
             System.out.println("Introduce el nombre:");
             nombre = sc.nextLine();
-            sc.reset();
         } while (!Validaciones.validarNombre(nombre));
         return nombre;
     }
@@ -74,11 +82,10 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("Introduce el nivel inicial del héroe:");
-                nivelHeroe = sc.nextInt();
-                sc.reset();
-            }catch (InputMismatchException e){
+                String entrada = sc.nextLine().trim();
+                nivelHeroe = Integer.parseInt(entrada);
+            }catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita tipo número.");
-                sc.nextLine();
             }
         } while (!Validaciones.validarNivel(nivelHeroe));
         return nivelHeroe;
@@ -89,11 +96,10 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("Seleccione un arma por su código:");
-                armaSeleccionada = (sc.nextInt() - 1);
-                sc.reset();
-            } catch (InputMismatchException e){
+                String entrada = sc.nextLine().trim();
+                armaSeleccionada = Integer.parseInt(entrada)-1;
+            } catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita tipo número");
-                sc.nextLine();
             }
         } while (!Validaciones.validarArma(armaSeleccionada, armasDisponibles));
         return armasDisponibles.getArmas().get(armaSeleccionada);
@@ -104,10 +110,10 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("Introduce el daño del arma(5-30):");
-                dmg = sc.nextDouble();
-            } catch (InputMismatchException e){
+                String entrada = sc.nextLine().trim();
+                dmg = Double.parseDouble(entrada);
+            } catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita tipo número, permitido decimales.");
-                sc.nextLine();
             }
         } while (!Validaciones.validarDMG(dmg));
         return dmg;
@@ -118,20 +124,25 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("Introduce la durabilidad del arma (0-100):");
-                durabilidad = sc.nextInt();
-            } catch (InputMismatchException e){
+                String entrada = sc.nextLine().trim();
+                durabilidad = Integer.parseInt(entrada);
+            } catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita tipo número");
-                sc.nextLine();
             }
         } while (!Validaciones.validarDurabilidad(durabilidad));
         return durabilidad;
     }
 
-    protected static String solicitarAtributoEspecial(){
-        String atributoEspecial = "";
+    protected static int solicitarAtributoEspecial(){
+        int atributoEspecial = -1;
         do {
-            System.out.println("Introduce el atributo especial:");
-            atributoEspecial = sc.nextLine().toUpperCase();
+            try {
+                System.out.println("Introduce el atributo especial:");
+                String entrada = sc.nextLine().trim();
+                atributoEspecial = Integer.parseInt(entrada)-1;
+            } catch (NumberFormatException e){
+                System.err.println("Formato incorrecto. Se solicita tipo número.");
+            }
         } while (!Validaciones.validarAtributoEspecial(atributoEspecial));
         return atributoEspecial;
     }
@@ -147,10 +158,10 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("Introduce la cantidad de munición. (0-130):");
-                cantidadMunicion = sc.nextInt();
-            } catch (InputMismatchException e ){
+                String entrada = sc.nextLine().trim();
+                cantidadMunicion = Integer.parseInt(entrada);
+            } catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita tipo número");
-                sc.nextLine();
             }
         } while (!Validaciones.validarCantidadMunicion(cantidadMunicion));
         return cantidadMunicion;
@@ -161,11 +172,11 @@ public class Solicitudes {
         do {
             try {
                 System.out.println("¿Tiene habilidad de sangrado? (true/false):");
-                sangrado = sc.nextBoolean();
+                String entrada = sc.nextLine().trim();
+                sangrado = Boolean.parseBoolean(entrada);
                 correctaEjecucion = true;
-            } catch (InputMismatchException e){
+            } catch (NumberFormatException e){
                 System.err.println("Formato incorrecto. Se solicita boolean.");
-                sc.nextLine();
             }
         } while (!correctaEjecucion);
         return sangrado;
@@ -175,8 +186,16 @@ public class Solicitudes {
         int gremioSeleccionado = -1;
         do {
             gremioSeleccionado = solicitarOPC() - 1;
-            if (gremioSeleccionado >= 0 && gremioSeleccionado < gremios.length) ejecucionCorrecta = true;
+            if (gremioSeleccionado >= 0 && gremioSeleccionado < gremios.length){
+                ejecucionCorrecta = true;
+            } else {
+                System.err.println("ERROR. El gremio introducido no existe.");
+            }
         } while (!ejecucionCorrecta);
         return gremioSeleccionado;
     }
 }
+
+/*
+- COMPROBAR
+ */

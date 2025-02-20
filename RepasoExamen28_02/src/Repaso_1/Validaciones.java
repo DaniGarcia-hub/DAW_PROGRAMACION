@@ -20,27 +20,21 @@ public class Validaciones {
         }
         return true;
     }
-    protected static boolean validarTipoHeroe(String nombre){
-        boolean opcEncontrada = false;
-        for (TiposHeroes tipoHeroe : TiposHeroes.values()){
-            if (nombre.equalsIgnoreCase(tipoHeroe.toString())){
-                opcEncontrada = true;
-                break;
-            }
+    protected static boolean validarTipoHeroe(int guerrero){
+        if (guerrero >= 0 && guerrero < TiposHeroes.values().length){
+            return true;
+        } else {
+            System.err.println("ERROR. Tipo de héroe introducido inválido.");
+            return false;
         }
-        if (!opcEncontrada) System.err.println("ERROR. Tipo de héroe inválido.");
-        return opcEncontrada;
     }
-    protected static boolean validarTipoArma(String nombre){
-        boolean opcEncontrada = false;
-        for (TiposArmas tipoArma: TiposArmas.values()){
-            if(nombre.equalsIgnoreCase(tipoArma.toString())){
-                opcEncontrada = true;
-                break;
-            }
+    protected static boolean validarTipoArma(int arma){
+        if (arma >= 0 && arma < TiposArmas.values().length){
+            return true;
+        } else {
+            System.err.println("ERROR. Tipo de arma introducida inválida.");
+            return false;
         }
-        if (!opcEncontrada) System.err.println("ERROR. Tipo de arma inválida.");
-        return opcEncontrada;
     }
     protected static boolean validarNombre(String nombre){
         boolean resultado = true;
@@ -64,35 +58,30 @@ public class Validaciones {
         return false;
     }
     protected static boolean validarArma(int opcUsuario, ListadoArmas armasDisponibles){
-        if (armasDisponibles.getArmas().get(opcUsuario) == null){
-            System.err.println("ERROR. El arma introducida no existe.");
-            return false;
-        }
-        return true;
+        if (opcUsuario >= 0 && opcUsuario < armasDisponibles.armas.size()) return true;
+        System.err.println("ERROR. El arma escogida no existe.");
+        return false;
     }
     protected static boolean validarDMG(double dmg){
         if (dmg >= 5 && dmg <= 30){
             return true;
         }
+        System.err.println("ERROR. Daño introducido fuera de los límites permitidos.");
         return false;
     }
     protected static boolean validarDurabilidad(int durabilidad){
         if (durabilidad >= 0 && durabilidad <= 100) return true;
+        System.err.println("ERROR. Durabilidad introducida fuera de los límites permitidos.");
         return false;
     }
-    protected static boolean validarAtributoEspecial(String atributo){
-        boolean opcEncontrada = false;
-        for (AtributosEspeciales atributoEspecial : AtributosEspeciales.values()){
-            if (atributo.equalsIgnoreCase(atributoEspecial.toString())){
-                opcEncontrada = true;
-                break;
-            }
-        }
-        if (!opcEncontrada) System.err.println("ERROR. Atributo especial inválido.");
-        return opcEncontrada;
+    protected static boolean validarAtributoEspecial(int atributo){
+        if (atributo >= 0 && atributo < AtributosEspeciales.values().length) return true;
+        System.err.println("ERROR. El atributo especial no existe.");
+        return false;
     }
     protected static boolean validarCantidadMunicion(int cantidad){
         if (cantidad >= 0 && cantidad <= 130) return true;
+        System.err.println("ERROR. La cantidad de munición está fuera de los límites.");
         return false;
     }
 

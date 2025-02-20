@@ -24,7 +24,7 @@ public abstract class Persona implements Ataque {
         this.nombre = nombre;
     }
 
-    public double getNivel() {
+    public int getNivel() {
         return nivel;
     }
 

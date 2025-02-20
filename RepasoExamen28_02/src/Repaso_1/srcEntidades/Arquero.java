@@ -11,8 +11,12 @@ public class Arquero extends Persona{
     }
 
     @Override
-    public void atacar(){
-
+    public double atacar(){
+        if (arma.getDurabilidad() == 0){
+            return 0; // SI no tiene durabilidad, no puede quitar daño.
+        }
+        arma.setDurabilidad(arma.getDurabilidad()-1);
+        return arma.getDmg() + precision;
     }
 
     @Override
