@@ -17,12 +17,11 @@ public class Asesino extends Persona{
 
     @Override
     public String toString() {
-        return "Asesino{" +
-                "sigilo=" + sigilo +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", HP=" + HP +
-                ", arma=" + arma.getNombre() +
-                '}';
+        return "Asesino" +
+                " | Nombre: " + nombre +
+                " | Nivel: " + nivel +
+                " | HP: " + HP +
+                " | Sigilo: " + sigilo +
+                " | Arma: " + arma.getNombre();
     }
 }

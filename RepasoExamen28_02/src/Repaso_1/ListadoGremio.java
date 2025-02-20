@@ -44,9 +44,7 @@ public class ListadoGremio {
 
     @Override
     public String toString() {
-        return "ListadoGremio{" +
-                "numGremio=" + numGremio +
-                ", nombreGremio='" + nombreGremio + '\'' +
-                '}';
+        return "GREMIO" +
+                " | Nombre Gremio: " + nombreGremio;
     }
 }

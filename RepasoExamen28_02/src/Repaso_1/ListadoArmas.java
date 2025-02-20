@@ -14,7 +14,7 @@ public class ListadoArmas {
         this.numListado = numListado;
         this.nombreListado = nombreListado;
         this.armas = new ArrayList<>();
-        registrarNuevaArma(new Cuchillo("Cuchillo metal roto", 5, 100, "Ninguno", 0));
+        registrarNuevaArma(new Cuchillo("Cuchillo metal roto", 5, 100, "Ninguno", false));
     }
 
     public int getNumListado() {

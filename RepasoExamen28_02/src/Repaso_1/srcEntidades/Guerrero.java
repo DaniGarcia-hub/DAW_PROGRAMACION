@@ -17,12 +17,11 @@ public class Guerrero extends Persona{
 
     @Override
     public String toString() {
-        return "Guerrero{" +
-                "fuerza=" + fuerza +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", HP=" + HP +
-                ", arma=" + arma.getNombre() +
-                '}';
+        return "Guerrero" +
+                " | Nombre: " + nombre +
+                " | Nivel: " + nivel +
+                " | HP: " + HP +
+                " | Fuerza: " + fuerza +
+                " | Arma: " + arma.getNombre();
     }
 }

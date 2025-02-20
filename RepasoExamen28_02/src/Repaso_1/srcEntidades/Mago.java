@@ -17,12 +17,11 @@ public class Mago extends Persona{
 
     @Override
     public String toString() {
-        return "Mago{" +
-                "mana=" + mana +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", HP=" + HP +
-                ", arma=" + arma.getNombre() +
-                '}';
+        return "Mago" +
+                " | Nombre: " + nombre +
+                " | Nivel: " + nivel +
+                " | HP: " + HP +
+                " | Mana: " + mana +
+                " | Arma: " + arma.getNombre();
     }
 }

@@ -17,12 +17,11 @@ public class Arquero extends Persona{
 
     @Override
     public String toString() {
-        return "Arquero{" +
-                "precision=" + precision +
-                ", nombre='" + nombre + '\'' +
-                ", nivel=" + nivel +
-                ", HP=" + HP +
-                ", arma=" + arma.getNombre() +
-                '}';
+        return "Arquero" +
+                " | Nombre: " + nombre +
+                " | Nivel: " + nivel +
+                " | HP: " + HP +
+                " | Precision: " + precision+
+                " | Arma: " + arma.getNombre();
     }
 }

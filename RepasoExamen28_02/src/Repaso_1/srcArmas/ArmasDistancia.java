@@ -1,10 +1,10 @@
 package Repaso_1.srcArmas;
 
 public abstract class ArmasDistancia extends Arma{
-    private int cantidadMunicion;
-    private String tipoMunicion;
+    protected int cantidadMunicion;
+    protected String tipoMunicion;
 
-    public ArmasDistancia(String nombre, double dmg, double durabilidad, String atributoEspecial, int cantidadMunicion, String tipoMunicion){
+    public ArmasDistancia(String nombre, double dmg, int durabilidad, String atributoEspecial, int cantidadMunicion, String tipoMunicion){
         super(nombre, dmg, durabilidad, atributoEspecial);
         this.cantidadMunicion = cantidadMunicion;
         this.tipoMunicion = tipoMunicion;

@@ -1,5 +1,5 @@
 package Repaso_1.srcArmas;
 
 public enum AtributosEspeciales {
-    Fuego, Hielo, Veneno, Debilidad, Ninguno
+    FUEGO, HIELO, VENENO, DEBILIDAD, NINGUNO
 }

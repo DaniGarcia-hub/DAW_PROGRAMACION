@@ -1,11 +1,11 @@
 package Repaso_1.srcArmas;
 
 public abstract class Arma {
-    private String nombre, atributoEspecial;
-    private double dmg;
-    private double durabilidad;
+    protected String nombre, atributoEspecial;
+    protected double dmg;
+    protected int durabilidad;
 
-    public Arma(String nombre, double dmg, double durabilidad, String atributoEspecial){
+    public Arma(String nombre, double dmg, int durabilidad, String atributoEspecial){
         this.nombre = nombre;
         this.dmg = dmg;
         this.durabilidad = durabilidad;
@@ -28,21 +28,20 @@ public abstract class Arma {
         this.dmg = dmg;
     }
 
-    public double getDurabilidad() {
+    public int getDurabilidad() {
         return durabilidad;
     }
 
-    public void setDurabilidad(double durabilidad) {
+    public void setDurabilidad(int durabilidad) {
         this.durabilidad = durabilidad;
     }
 
     @Override
     public String toString() {
-        return "Arma{" +
-                "nombre='" + nombre + '\'' +
-                ", atributoEspecial='" + atributoEspecial + '\'' +
-                ", dmg=" + dmg +
-                ", durabilidad=" + durabilidad +
-                '}';
+        return "Arma:" +
+                " | Nombre: " + nombre +
+                " | Daño: " + dmg +
+                " | Durabilidad: " + durabilidad +
+                " | AtributoEspecial: " + atributoEspecial;
     }
 }
