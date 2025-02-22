@@ -36,7 +36,7 @@ public class Validaciones {
             return false;
         }
     }
-    protected static boolean validarNombre(String nombre){
+    protected static boolean validarNombre(String nombre, ListadoHeroes listadoHeroes){
         boolean resultado = true;
         if (nombre.isEmpty()){
             System.err.println("ERROR. El nombre no puede estar vacío.");
@@ -46,6 +46,9 @@ public class Validaciones {
             resultado = false;
         } else if (!comprobarSoloTexto(nombre)) {
             System.err.println("ERROR. Solo se permiten letras.");
+            resultado = false;
+        } else if(queryHeroe(nombre, listadoHeroes) != null){
+            System.err.println("ERROR. El nombre ya está en uso.");
             resultado = false;
         }
         return resultado;

@@ -58,7 +58,7 @@ public class Solicitudes {
         int seleccionTipo = -1;
         do {
             try {
-                System.out.println("Seleccione el tipo de arma:");
+                System.out.println("Seleccione el tipo de arma (Ej.3):");
                 String entrada = sc.nextLine().trim();
                 seleccionTipo = Integer.parseInt(entrada)-1;
             } catch (NumberFormatException e){
@@ -68,12 +68,12 @@ public class Solicitudes {
         return seleccionTipo;
     }
 
-    protected static String solicitarNombre(){
+    protected static String solicitarNombre(ListadoHeroes listadoHeroes){
         String nombre = "";
         do {
-            System.out.println("Introduce el nombre:");
+            System.out.println("Introduce el nombre (Ej. Gladiador Tolomeo):");
             nombre = sc.nextLine();
-        } while (!Validaciones.validarNombre(nombre));
+        } while (!Validaciones.validarNombre(nombre, listadoHeroes));
         return nombre;
     }
 
@@ -81,7 +81,7 @@ public class Solicitudes {
         int nivelHeroe = -1;
         do {
             try {
-                System.out.println("Introduce el nivel inicial del héroe:");
+                System.out.println("Introduce el nivel inicial del héroe (Ej. 2):");
                 String entrada = sc.nextLine().trim();
                 nivelHeroe = Integer.parseInt(entrada);
             }catch (NumberFormatException e){
@@ -95,7 +95,7 @@ public class Solicitudes {
         int armaSeleccionada = -1;
         do {
             try {
-                System.out.println("Seleccione un arma por su código:");
+                System.out.println("Seleccione un arma por su código (Ej. 2):");
                 String entrada = sc.nextLine().trim();
                 armaSeleccionada = Integer.parseInt(entrada)-1;
             } catch (NumberFormatException e){

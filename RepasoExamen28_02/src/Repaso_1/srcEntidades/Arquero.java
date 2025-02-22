@@ -16,7 +16,8 @@ public class Arquero extends Persona{
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
         arma.setDurabilidad(arma.getDurabilidad()-1);
-        return arma.getDmg() + precision;
+        int dmgAdicionalAleatorio = random.nextInt(16);
+        return arma.getDmg() + precision + dmgAdicionalAleatorio;
     }
 
     @Override

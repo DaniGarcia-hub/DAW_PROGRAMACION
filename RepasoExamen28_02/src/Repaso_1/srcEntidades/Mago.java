@@ -2,6 +2,7 @@ package Repaso_1.srcEntidades;
 
 import Repaso_1.srcArmas.Arma;
 
+
 public class Mago extends Persona{
     protected double mana;
 
@@ -16,7 +17,8 @@ public class Mago extends Persona{
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
         arma.setDurabilidad(arma.getDurabilidad()-1);
-        return arma.getDmg() + mana;
+        int dmgAdicionalAleatorio = random.nextInt(16);
+        return arma.getDmg() + mana + dmgAdicionalAleatorio;
     }
 
     @Override

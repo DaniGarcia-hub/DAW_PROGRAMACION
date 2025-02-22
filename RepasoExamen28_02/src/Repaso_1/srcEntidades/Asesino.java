@@ -16,7 +16,8 @@ public class Asesino extends Persona{
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
         arma.setDurabilidad(arma.getDurabilidad()-1);
-        return arma.getDmg() + sigilo;
+        int dmgAdicionalAleatorio = random.nextInt(16);
+        return arma.getDmg() + sigilo + dmgAdicionalAleatorio;
     }
 
     @Override

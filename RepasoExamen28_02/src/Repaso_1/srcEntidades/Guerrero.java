@@ -2,6 +2,8 @@ package Repaso_1.srcEntidades;
 
 import Repaso_1.srcArmas.Arma;
 
+import java.util.Random;
+
 public class Guerrero extends Persona{
     protected double fuerza;
 
@@ -16,7 +18,8 @@ public class Guerrero extends Persona{
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
         arma.setDurabilidad(arma.getDurabilidad()-1);
-        return arma.getDmg() + fuerza;
+        int dmgAdicionalAleatorio = random.nextInt(16);
+        return arma.getDmg() + fuerza + dmgAdicionalAleatorio;
     }
 
     @Override

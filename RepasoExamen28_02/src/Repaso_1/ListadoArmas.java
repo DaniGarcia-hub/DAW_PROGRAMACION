@@ -48,7 +48,7 @@ public class ListadoArmas {
     public void mostrarArmasRegistradas(){
         System.out.println("LISTADO DE ARMAS (" + nombreListado + "):");
         for (int i = 0; i < armas.size(); i++){
-            System.out.println((i+1) + " | " + armas.get(i));
+            System.out.println("Código: " + (i+1) + " | " + armas.get(i));
         }
     }
 }

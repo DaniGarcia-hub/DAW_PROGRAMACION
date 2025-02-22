@@ -36,11 +36,6 @@ public class Main {
         ListadoHeroes listadoHeroes = new ListadoHeroes(1, "Cacerolas");
         ListadoArmas listadoArmas = new ListadoArmas(1, "ArmasGuays");
 
-        listadoHeroes.registrarNuevoHeroe(new Arquero("Periko", 2, 134.25, 25.5, listadoArmas.getArmas().getFirst()));
-        listadoHeroes.registrarNuevoHeroe(new Arquero("Alberto", 3, 154.25, 15.2, listadoArmas.getArmas().getFirst()));
-
-        gremios[0].nuevoHeroeGremio(listadoHeroes.personas.getFirst());
-
         boolean finalizarPrograma = false;
         System.out.println("""
                 BIENVENID@ A UN JUEGO MUY ESPECIAL.
@@ -58,7 +53,7 @@ public class Main {
                     System.out.println("------------------------");
                     Solicitudes.mostrarTiposHeroes();
                     int tipoHeroe = Solicitudes.solicitarTipoHeroe();
-                    String nombre = Solicitudes.solicitarNombre();
+                    String nombre = Solicitudes.solicitarNombre(listadoHeroes);
                     int nivel = Solicitudes.solicitarNivel();
                     listadoArmas.mostrarArmasRegistradas();
                     Arma arma = Solicitudes.solicitarArma(listadoArmas);
@@ -84,12 +79,12 @@ public class Main {
                             break;
                     }
                     System.out.println("INFORMACIÓN HÉROE CREADO:");
-                    listadoHeroes.personas.getLast();
+                    System.out.println(listadoHeroes.personas.getLast());
                     break;
                 case 2:
                     Solicitudes.mostrarTiposArmas();
                     int tipoArma = Solicitudes.solicitarTipoArma();
-                    nombre = Solicitudes.solicitarNombre();
+                    nombre = Solicitudes.solicitarNombre(listadoHeroes);
                     double dmg = Solicitudes.solicitarDMG();
                     int durabilidad = Solicitudes.solicitarDurabilidad();
                     Solicitudes.mostrarAtributosEspeciales();
@@ -135,6 +130,8 @@ public class Main {
                                 break;
                         }
                     }
+                    System.out.println("INFORMACIÓN ARMA CREADA:");
+                    System.out.println(listadoArmas.armas.getLast());
                     break;
                 case 3:
                     int heroeSeleccionado = -1;
@@ -354,7 +351,7 @@ public class Main {
         int i = 0;
         System.out.println("LISTADO DE GREMIOS:");
         for (ListadoGremio gremio : gremios){
-            System.out.println((i+1) + " | " + gremio);
+            System.out.println("Código: " + (i+1) + " | " + gremio);
             i++;
         }
     }
@@ -366,4 +363,13 @@ public class Main {
                 Se trata de un modo de juego, donde tras escoger dos héroes para una pelea, se enfrentarán haciendo uso
                 de sus increibles armas en una pelea. A continuación, se mostrarán la lista de héroes disponibles:""");
     }
+
+    /*
+    POR HACER:
+    - MOSTRAR DATOS TRAS CREAR HÉROES Y ARMAS...
+    - AL CREAR PERSONAJE, QUE LE PIDA TANTAS ARMAS COMO EL USUARIO QUIERA QUE TENGA EL PERSONAJE.
+    - OPCIÓN DE AÑADIR ARMAS TRAS PERSONAJE YA CREADO.
+    - MODIFICAR QUE LAS CREACIONES DE HÉROES, YA NO PIDA POR PARÁMETRO UN OBJETO ARMA.
+    - REVISAR COMO SE VALIDAN LAS COSAS, PARA QUE NO DÉ PROBLEMAS.
+     */
 }

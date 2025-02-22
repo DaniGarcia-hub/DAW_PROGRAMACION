@@ -30,7 +30,7 @@ public class ListadoGremio {
     public void mostrarHeroesGremio(){
         System.out.println("LISTADO HEROES GREMIO (" + nombreGremio + "):");
         for (int i = 0; i < personasGremio.size(); i++){
-            System.out.println((i+1) + " | " + personasGremio.get(i));
+            System.out.println("Código: " + (i+1) + " | " + personasGremio.get(i));
         }
     }
 

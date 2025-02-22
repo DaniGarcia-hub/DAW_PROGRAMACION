@@ -42,7 +42,7 @@ public class ListadoHeroes {
     public void mostrarHeroesRegistrados(){
         System.out.println("LISTADO DE HEROES (" + nombreListado + "):");
         for (int i = 0; i < personas.size(); i++){
-            System.out.println((i+1) + " | " + personas.get(i));
+            System.out.println("Código: " + (i+1) + " | " + personas.get(i));
         }
     }
 }

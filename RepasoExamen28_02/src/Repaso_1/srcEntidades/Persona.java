@@ -3,6 +3,8 @@ package Repaso_1.srcEntidades;
 import Repaso_1.srcArmas.Arma;
 import Repaso_1.Interfaces.Ataque;
 
+import java.util.Random;
+
 public abstract class Persona implements Ataque {
     protected String nombre;
     protected int nivel;
@@ -57,4 +59,6 @@ public abstract class Persona implements Ataque {
                 ", arma=" + arma.getNombre() +
                 '}';
     }
+
+    Random random = new Random();
 }
