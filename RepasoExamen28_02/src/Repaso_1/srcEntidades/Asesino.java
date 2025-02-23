@@ -5,13 +5,13 @@ import Repaso_1.srcArmas.Arma;
 public class Asesino extends Persona{
     private double sigilo;
 
-    public Asesino(String nombre, int nivel, double HP, double sigilo, Arma arma){
-        super(nombre, nivel, HP, arma);
+    public Asesino(String nombre, int nivel, double HP, double sigilo){
+        super(nombre, nivel, HP);
         this.sigilo = sigilo;
     }
 
     @Override
-    public double atacar(){
+    public double atacar(Arma arma){
         if (arma.getDurabilidad() == 0){
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
@@ -26,7 +26,7 @@ public class Asesino extends Persona{
                 " | Nombre: " + nombre +
                 " | Nivel: " + nivel +
                 " | HP: " + HP +
-                " | Sigilo: " + sigilo +
-                " | Arma: " + arma.getNombre();
+                " | Sigilo: " + sigilo;
+//                " | Arma: " + arma.getNombre();
     }
 }

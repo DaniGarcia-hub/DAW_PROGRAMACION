@@ -3,19 +3,21 @@ package Repaso_1.srcEntidades;
 import Repaso_1.srcArmas.Arma;
 import Repaso_1.Interfaces.Ataque;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Persona implements Ataque {
     protected String nombre;
     protected int nivel;
     protected double HP;
-    protected Arma arma;
+    protected ArrayList<Arma> armas;
+//    protected Arma arma;
 
-    public Persona(String nombre, int nivel, double HP, Arma arma){
+    public Persona(String nombre, int nivel, double HP){
         this.nombre = nombre;
         this.nivel = nivel;
         this.HP = HP;
-        this.arma = arma;
+        this.armas = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -42,13 +44,28 @@ public abstract class Persona implements Ataque {
         this.HP = HP;
     }
 
-    public Arma getArma() {
-        return arma;
+    public ArrayList<Arma> getArmas() {
+        return armas;
     }
 
-    public void setArma(Arma arma) {
-        this.arma = arma;
+    public void registrarArma(Arma arma){
+        armas.add(arma);
     }
+
+    public void mostrarArmas(){
+        System.out.println("LISTADO ARMAS HÉROE:");
+        for (int i = 0; i < armas.size(); i++){
+            System.out.println("Código: " + (i+1) + " | " + armas.get(i));
+        }
+    }
+
+//    public Arma getArma() {
+//        return arma;
+//    }
+//
+//    public void setArma(Arma arma) {
+//        this.arma = arma;
+//    }
 
     @Override
     public String toString() {
@@ -56,7 +73,7 @@ public abstract class Persona implements Ataque {
                 "nombre='" + nombre + '\'' +
                 ", nivel=" + nivel +
                 ", HP=" + HP +
-                ", arma=" + arma.getNombre() +
+//                ", arma=" + arma.getNombre() +
                 '}';
     }
 

@@ -7,13 +7,13 @@ import java.util.Random;
 public class Guerrero extends Persona{
     protected double fuerza;
 
-    public Guerrero(String nombre, int nivel, double HP, double fuerza, Arma arma){
-        super(nombre, nivel, HP, arma);
+    public Guerrero(String nombre, int nivel, double HP, double fuerza){
+        super(nombre, nivel, HP);
         this.fuerza = fuerza;
     }
 
     @Override
-    public double atacar(){
+    public double atacar(Arma arma){
         if (arma.getDurabilidad() == 0){
             return 0; // SI no tiene durabilidad, no puede quitar daño.
         }
@@ -28,7 +28,7 @@ public class Guerrero extends Persona{
                 " | Nombre: " + nombre +
                 " | Nivel: " + nivel +
                 " | HP: " + HP +
-                " | Fuerza: " + fuerza +
-                " | Arma: " + arma.getNombre();
+                " | Fuerza: " + fuerza;
+//                " | Arma: " + arma.getNombre();
     }
 }
