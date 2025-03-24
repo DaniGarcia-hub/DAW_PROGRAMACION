@@ -11,9 +11,9 @@ class PinturaTest {
         Rectangulo rectangulo = new Rectangulo(30, 50);
         Esfera esfera = new Esfera(15);
         Pintura pintura = new Pintura(100);
-        assertEquals(15, pintura.calcularCantidad(rectangulo));
-        assertEquals(2827.4333882308138/100, pintura.calcularCantidad(esfera));
-        assertEquals(13194.689145077133/100, pintura.calcularCantidad(cilindro));
+        assertEquals(15, pintura.calcularCantidad(rectangulo), 0.01);
+        assertEquals(2827.433/100, pintura.calcularCantidad(esfera), 0.01);
+        assertEquals(13194.689/100, pintura.calcularCantidad(cilindro), 0.01);
 
         // Lo he colocado de esta forma:
         // 13194.689145077133/100

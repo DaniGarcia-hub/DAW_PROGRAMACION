@@ -20,9 +20,9 @@ class FormaTest {
         Cilindro cilindro = new Cilindro(30, 40);
         Rectangulo rectangulo = new Rectangulo(30, 50);
         Esfera esfera = new Esfera(15);
-        assertEquals(1500, rectangulo.area());
-        assertEquals(2827.4333882308138, esfera.area());
-        assertEquals(113097.33552923254, cilindro.area());
+        assertEquals(1500, rectangulo.area(), 0.01);
+        assertEquals(2827.4333882308138, esfera.area(), 0.01);
+        assertEquals(13194.68914507713, cilindro.area(), 0.01);
     }
 
 
