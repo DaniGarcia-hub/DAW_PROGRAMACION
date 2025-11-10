@@ -17,9 +17,9 @@
 <!-- https://radu.link/make-footer-stay-bottom-page-bootstrap/ -->
 
 <body class="d-flex flex-column min-vh-100">
-  <?php include("datos.php"); ?>
-  <?php include("utiles.php"); ?>
-  <?php include "./templates/header.php" ?>
+  <?php include_once("datos.php"); ?>
+  <?php include_once("utiles.php"); ?>
+  <?php include_once "./templates/header.php" ?>
 
   <!-- UD3.2.f -->
   <div style="margin-left: 30vh;">
@@ -31,19 +31,41 @@
   <div class="container mb-5">
     <div class="row">
       <?php
-      /* UD3.2.f */
-      $forma = 0;
-      if (isset($_GET['formaOrdenar'])) {
-        $forma = $_GET['formaOrdenar'];
+      if (!isset($_GET['sort_date'])){
+        /* UD3.2.f */
+        $forma = 0;
+        if (isset($_GET['formaOrdenar'])) {
+          $forma = $_GET['formaOrdenar'];
+        }
+
+        /* UD3.2.f */
+        usort($proyectos, $forma == 1 ? function ($a, $b) {
+          return $b['titulo'] <=> $a['titulo'];
+        } : function ($a, $b) {
+          return $a['titulo'] <=> $b['titulo'];
+        });
+      }
+      
+      /* UD3.3.f */
+      if (isset($_GET['categoria']) && $_GET['categoria']){
+        $categoriaFiltrada = $_GET['categoria'];
+        $proyectos_nuevos = array_filter($proyectos, function($proyecto) use ($categoriaFiltrada){
+          foreach($proyecto["categorias"] as $categoria){
+            if ($categoria["clave"] == $categoriaFiltrada) {
+              return true;
+            };
+          }
+          return false;
+        });
       }
 
-      /* UD3.2.f */
-      usort($proyectos, $forma == 1 ? function ($a, $b) {
-        return $b['titulo'] <=> $a['titulo'];
-      } : function ($a, $b) {
-        return $a['titulo'] <=> $b['titulo'];
-      });
-      foreach ($proyectos as $proyecto): ?>
+      /* UD3.3.h */
+      if (isset($_GET['delete']) && $_GET['delete'] == true){
+        array_pop($proyectos);
+      }
+
+      /* UD3.3.f */
+      foreach ((isset($_GET['categoria']) && $_GET['categoria']) ? $proyectos_nuevos : $proyectos as $proyecto): ?>
         <div class="col-sm-3">
           <!-- UD3.3.d -->
           <a href="proyecto.php?id=<?php echo $proyecto['clave'] ?>" class="p-5">
@@ -53,7 +75,7 @@
               <div class="card-body">
                 <h5 class="card-title"><?php echo $proyecto['titulo'] ?></h5>
                 <p class="card-text"><?php echo $proyecto['descripcion'] ?></p>
-                <!-- UD3.3.c -->
+                <!-- UD3.3.c UD3.4.a -->
                 <p class="card-text">
                   <?php
                   $textoMostrar = "";
@@ -73,7 +95,7 @@
     </div>
   </div>
 
-  <?php include "./templates/footer.php" ?>
+  <?php include_once "./templates/footer.php" ?>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>

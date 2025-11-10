@@ -1,0 +1,22 @@
+[
+    {
+        "clave" : "dashboard_bi",
+        "titulo" : "Dashboard BI",
+        "descripcion" : "Implementación de un panel de Business Intelligence para la visualización de KPIs de ventas.",
+        "imagen" : "static/images/pexels-data-dashboard.jpg",
+        "fecha" : "21/09/2025",
+        "categorias" : [
+            {"clave" : "categoria3"}
+        ]
+    },
+    {
+        "clave" : "sistema_crm",
+        "titulo" : "Implantación de CRM",
+        "descripcion" : "Configuración e integración de un sistema CRM (Customer Relationship Management) para el equipo de ventas.",
+        "imagen" : "static/images/pexels-crm-sales.jpg",
+        "fecha" : "21/10/2025",
+        "categorias" : [
+            {"clave" : "categoria2"}
+        ]
+    }
+]

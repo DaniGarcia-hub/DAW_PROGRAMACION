@@ -5,7 +5,7 @@ $proyectoWeb = null;
 foreach ($proyectos as $proyecto) {
     if (isset($_GET['id'])) {
         if ($_GET['id'] == $proyecto['clave']) {
-            $proyectoWeb = $proyecto['clave'];
+            $proyectoWeb = $proyecto;
             break;
         }
     }
@@ -36,8 +36,8 @@ if (!$proyectoWeb) {
 <!-- https://radu.link/make-footer-stay-bottom-page-bootstrap/ -->
 
 <body class="d-flex flex-column min-vh-100">
-    <?php include("utiles.php"); ?>
-    <?php include("templates/header.php"); ?>
+    <?php include_once("utiles.php"); ?>
+    <?php include_once("templates/header.php"); ?>
 
     <?php /* UD3.3.d */
     $proyectoEntrante = $_GET['id'];
@@ -75,7 +75,7 @@ if (!$proyectoWeb) {
         </div>
     </div>
 
-    <?php include("templates/footer.php"); ?>
+    <?php include_once("templates/footer.php"); ?>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
